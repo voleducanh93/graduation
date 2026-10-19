@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 
-const ceremonyDate = new Date("2026-11-07T00:00:00+07:00").getTime();
+const ceremonyDate = new Date("2026-11-07T10:00:00+07:00").getTime();
 function getCountdown(now: number) {
   const distance = Math.max(0, ceremonyDate - now);
   return { days: Math.floor(distance / 86400000), hours: Math.floor(distance % 86400000 / 3600000), minutes: Math.floor(distance % 3600000 / 60000), seconds: Math.floor(distance % 60000 / 1000), passed: now >= ceremonyDate };
