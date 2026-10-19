@@ -86,8 +86,18 @@ h1 em,h2 em { font-weight: 500; color: var(--accent); }
 .sound-button.is-playing { background: #eee5d8; border-color: var(--accent); }
 .sound-icon { font: 21px var(--serif); color: var(--accent); }.sound-bars { height: 14px; display: flex; align-items: center; gap: 2px; }.sound-bars i { width: 2px; height: 4px; background: var(--accent); border-radius: 3px; }.is-playing .sound-bars i { animation: sound-wave .7s ease-in-out infinite alternate; }.is-playing .sound-bars i:nth-child(2) { animation-delay: -.5s; }.is-playing .sound-bars i:nth-child(3) { animation-delay: -.25s; }.is-playing .sound-bars i:nth-child(4) { animation-delay: -.4s; }
 .celebrate-button { background: var(--ink); color: var(--paper); border-color: var(--ink); }.celebrate-button span { color: #e6b96e; font-size: 16px; }
-.confetti-layer { position: fixed; inset: 0; z-index: 20; pointer-events: none; overflow: hidden; }.confetti-layer i { --x: calc((var(--i) * 37 + 11) % 100); position: absolute; left: calc(var(--x) * 1%); top: -20px; width: 9px; height: 14px; border-radius: 2px; background: hsl(var(--hue) 76% 60%); transform: rotate(calc(var(--i) * 29deg)); animation: confetti-fall calc(1.35s + (var(--i) % 9) * .08s) cubic-bezier(.2,.65,.4,1) forwards; animation-delay: calc((var(--i) % 12) * .025s); }.confetti-layer i:nth-child(3n) { width: 7px; height: 7px; border-radius: 50%; }.confetti-layer i:nth-child(4n) { width: 4px; height: 18px; }
-@keyframes confetti-fall { 0% { transform: translate3d(0,-5vh,0) rotate(0); opacity: 0; } 8% { opacity: 1; } 100% { transform: translate3d(calc((var(--i) % 7 - 3) * 22px),110vh,0) rotate(calc(var(--i) * 113deg)); opacity: .95; } }
+.confetti-layer { position: fixed; inset: 0; z-index: 20; pointer-events: none; overflow: hidden; }
+.confetti-layer i { --dx: calc((var(--i) - 38) * 1.55vw); position: absolute; left: var(--origin-x); top: var(--origin-y); width: 9px; height: 15px; border-radius: 2px; background: hsl(var(--hue) 78% 58%); opacity: 0; animation: confetti-launch 2s cubic-bezier(.18,.67,.3,1) both; animation-delay: calc(var(--i) * 7ms); }
+.confetti-layer i:nth-child(3n) { width: 8px; height: 8px; border-radius: 50%; }
+.confetti-layer i:nth-child(4n) { width: 4px; height: 19px; }
+.confetti-layer i:nth-child(5n) { animation-duration: 2.2s; }
+@keyframes confetti-launch {
+  0% { opacity: 0; transform: translate3d(0,0,0) rotate(0) scale(.3); }
+  8% { opacity: 1; }
+  42% { opacity: 1; transform: translate3d(var(--dx),-42vh,0) rotate(calc(var(--i) * 13deg)) scale(1); }
+  57% { transform: translate3d(calc(var(--dx) * 1.12),-39vh,0) rotate(calc(var(--i) * 17deg)); }
+  100% { opacity: 0; transform: translate3d(calc(var(--dx) * 1.35),calc(100vh - var(--origin-y) + 35px),0) rotate(calc(var(--i) * 29deg)); }
+} 8% { opacity: 1; } 100% { transform: translate3d(calc((var(--i) % 7 - 3) * 22px),110vh,0) rotate(calc(var(--i) * 113deg)); opacity: .95; } }
 @keyframes sound-wave { from { height: 3px; } to { height: 14px; } }
 @media (max-width:760px) { .guest-controls { flex-direction: column; padding-bottom: 44px; }.sound-button,.celebrate-button { width: min(100%,300px); } }
 @media (prefers-reduced-motion:reduce) { .confetti-layer { display: none; } }

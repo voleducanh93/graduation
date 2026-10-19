@@ -13,8 +13,14 @@ export default function Home() {
   const [now, setNow] = useState<number | null>(null);
 
   const [burst, setBurst] = useState(0);
+  const [burstOrigin, setBurstOrigin] = useState({ x: 0, y: 0 });
   useEffect(() => { setNow(Date.now()); const timer = window.setInterval(() => setNow(Date.now()), 1000); return () => window.clearInterval(timer); }, []);
-  function celebrate() { setBurst((value) => value + 1); window.setTimeout(() => setBurst((value) => Math.max(0, value - 1)), 1800); }
+  function celebrate(event: React.MouseEvent<HTMLButtonElement>) {
+    const bounds = event.currentTarget.getBoundingClientRect();
+    setBurstOrigin({ x: bounds.left + bounds.width / 2, y: bounds.top + bounds.height / 2 });
+    setBurst((value) => value + 1);
+    window.setTimeout(() => setBurst((value) => Math.max(0, value - 1)), 2200);
+  }
   const countdown = now === null ? null : getCountdown(now);
   const units: [string, string][] = [[String(countdown?.days ?? "—"), "NGÀY"], [countdown ? String(countdown.hours).padStart(2,"0") : "—", "GIỜ"], [countdown ? String(countdown.minutes).padStart(2,"0") : "—", "PHÚT"], [countdown ? String(countdown.seconds).padStart(2,"0") : "—", "GIÂY"]];
   return <main className="page-shell">
@@ -26,7 +32,7 @@ export default function Home() {
     <div className="event-info"><p className="section-kicker">NGÀY ĐẶC BIỆT</p><p className="date-month">THÁNG MƯỜI MỘT <span>· 2026</span></p><div className="date-lockup"><span>07</span><div><b>THỨ BẢY · 10:00 SÁNG</b><small>07.11.2026</small></div></div><div className="location-block"><span className="location-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M19 10c0 5-7 11-7 11S5 15 5 10a7 7 0 1 1 14 0Z" stroke="currentColor" strokeWidth="1.5"/><circle cx="12" cy="10" r="2.3" stroke="currentColor" strokeWidth="1.5"/></svg></span><div><b>ĐẠI HỌC FPT UNIVERSITY HCMC</b><p>{address}</p></div></div><a className="map-link" href={mapUrl} target="_blank" rel="noreferrer">XEM BẢN ĐỒ <span aria-hidden="true">↗</span></a></div></div><div className="card-bottomline"><span>YOUR PRESENCE MEANS THE WORLD TO ME</span><span>♡</span></div></section>
     <section className="countdown-section" aria-live="polite"><div className="countdown-heading"><p className="eyebrow"><span className="eyebrow-line"/> NGÀY MÌNH MONG CHỜ</p><h2>{countdown?.passed ? "Ngày đặc biệt đã đến!" : "Còn một chút nữa thôi."}</h2><p>Hẹn gặp bạn trong buổi lễ tốt nghiệp nhé.</p></div><div className="countdown" aria-label="Đếm ngược đến ngày 7 tháng 11 năm 2026">{units.map(([value,label]) => <div className="time-unit" key={label}><strong>{value}</strong><span>{label}</span></div>)}</div></section>
     <div className="guest-controls"><button className="celebrate-button" onClick={celebrate}><span aria-hidden="true">✦</span> GỬI LỜI CHÚC MỪNG</button></div>
-    {burst > 0 && <div className="confetti-layer" key={burst} aria-hidden="true">{Array.from({length: 76}, (_, index) => <i key={`${burst}-${index}`} style={{"--i": index, "--hue": `${(index * 47 + burst * 29) % 360}deg`} as React.CSSProperties}/>)}</div>}
+    {burst > 0 && <div className="confetti-layer" key={burst} aria-hidden="true">{Array.from({length: 76}, (_, index) => <i key={`${burst}-${index}`} style={{"--i": index, "--hue": `${(index * 47 + burst * 29) % 360}deg`, "--origin-x": `${burstOrigin.x}px`, "--origin-y": `${burstOrigin.y}px`} as React.CSSProperties}/>)}</div>}
     <footer className="footer"><span>VÕ LÊ ĐỨC ANH · SE170497</span><span>MADE WITH ♡ FOR A NEW BEGINNING</span></footer>
   </main>;
 }
