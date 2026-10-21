@@ -98,3 +98,92 @@ h1 em,h2 em { font-weight: 500; color: var(--accent); }
 }
 @media (max-width:760px) { .guest-controls { flex-direction: column; padding-bottom: 44px; }.celebrate-button { width: min(100%,300px); } }
 @media (prefers-reduced-motion:reduce) { .confetti-layer { display: none; } }
+.hero-art { perspective: 900px; transform-style: preserve-3d; }
+.bird-flock { position: absolute; inset: 0; overflow: hidden; pointer-events: none; z-index: 1; perspective: 900px; transform-style: preserve-3d; }
+.flying-bird { --fly-top: 12%; --fly-time: 15s; --fly-delay: 0s; --fly-depth: 0px; --fly-size: 42px; position: absolute; top: var(--fly-top); left: -12%; width: var(--fly-size); height: calc(var(--fly-size) * .7); opacity: 0; color: #3d4840; filter: drop-shadow(0 5px 5px rgba(42,38,31,.13)); transform-style: preserve-3d; animation: bird-cross var(--fly-time) linear var(--fly-delay) infinite; }
+.flying-bird svg { display: block; width: 100%; height: 100%; overflow: visible; }
+.bird-body { fill: currentColor; }
+.wing { fill: currentColor; transform-box: fill-box; transform-origin: 50% 65%; animation: bird-flap .42s ease-in-out infinite alternate; }
+.wing-right { animation-delay: -.18s; }
+.bird-one { --fly-top: 11%; --fly-time: 15s; --fly-delay: -12s; --fly-depth: 38px; --fly-size: 36px; }
+.bird-two { --fly-top: 20%; --fly-time: 18s; --fly-delay: -6s; --fly-depth: -62px; --fly-size: 25px; color: #77786c; filter: blur(.5px); }
+.bird-three { --fly-top: 7%; --fly-time: 16s; --fly-delay: -2s; --fly-depth: 72px; --fly-size: 48px; }
+.bird-four { --fly-top: 25%; --fly-time: 19s; --fly-delay: -14s; --fly-depth: -34px; --fly-size: 30px; color: #64695d; }
+.bird-five { --fly-top: 15%; --fly-time: 17s; --fly-delay: -9s; --fly-depth: 12px; --fly-size: 32px; }
+@keyframes bird-cross {
+  0% { left: -14%; opacity: 0; transform: translate3d(0,18px,calc(var(--fly-depth) - 70px)) scale(.65) rotateY(28deg) rotateZ(-8deg); }
+  9% { opacity: .78; }
+  48% { transform: translate3d(0,-13px,var(--fly-depth)) scale(.9) rotateY(0deg) rotateZ(2deg); }
+  90% { opacity: .75; }
+  100% { left: 108%; opacity: 0; transform: translate3d(0,-34px,calc(var(--fly-depth) + 75px)) scale(1.18) rotateY(-24deg) rotateZ(8deg); }
+}
+@keyframes bird-flap {
+  from { transform: scaleY(.28) rotate(-9deg); }
+  to { transform: scaleY(1) rotate(8deg); }
+}
+@media (max-width:760px) {
+  .bird-flock { inset: 0 -10%; }
+  .flying-bird { --fly-size: 31px; }
+  .bird-two,.bird-four { display: none; }
+  .bird-three { --fly-size: 39px; }
+}
+@media (prefers-reduced-motion:reduce) {
+  .flying-bird { animation: none; opacity: .3; left: 40%; }
+  .wing { animation: none; }
+}
+.keepsake-scene { display: flex; align-items: center; justify-content: center; gap: clamp(35px,9vw,130px); min-height: 330px; padding: 25px 0 15px; perspective: 1100px; }
+.keepsake-note { animation: rise-in .8s .1s both; }
+.keepsake-note .eyebrow { margin-bottom: 13px; font-size: 10px; }
+.keepsake-note h2 { margin: 0; font-size: clamp(27px,3vw,38px); line-height: 1.28; letter-spacing: -.8px; }
+.keepsake-note>p:last-child { margin: 15px 0 0; color: var(--muted); font: 10px var(--mono); letter-spacing: 2px; }
+.keepsake-note>p:last-child span { color: var(--accent); margin-left: 7px; }
+.medal-stage { position: relative; width: 260px; height: 260px; display: grid; place-items: center; transform-style: preserve-3d; }
+.medal-aura { position: absolute; inset: 28px; border-radius: 50%; background: radial-gradient(circle,rgba(209,134,103,.2),rgba(209,134,103,.05) 48%,transparent 70%); filter: blur(8px); animation: medal-aura 4s ease-in-out infinite alternate; }
+.medal-coin { position: relative; z-index: 2; width: 142px; height: 142px; border-radius: 50%; padding: 8px; background: linear-gradient(135deg,#d8b778,#fbefd2 23%,#ae8244 42%,#f4e4bf 63%,#9c733e 82%,#e3c88e); box-shadow: 0 22px 35px rgba(77,58,33,.2), inset 0 0 0 2px rgba(255,255,255,.65); transform-style: preserve-3d; animation: coin-hover 5s ease-in-out infinite; }
+.medal-coin::before { content:""; position:absolute; inset:5px; border-radius:50%; border:1px solid rgba(102,72,32,.48); transform: translateZ(7px); }
+.coin-face { width:100%; height:100%; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-direction:column; background:radial-gradient(circle at 32% 23%,#fff8e5,#e6cc96 62%,#c7a76c); color:#56462e; box-shadow:inset 0 2px 7px rgba(255,255,255,.8),inset 0 -8px 12px rgba(102,72,32,.13); transform:translateZ(3px); }
+.coin-star { font-size:17px; color:var(--accent); line-height:1; }.coin-face strong { font:600 43px/.95 var(--serif); letter-spacing:-2px; margin-top:3px; }.coin-face small { margin-top:4px; font:8px var(--mono); letter-spacing:2px; }
+.medal-orbit { position:absolute; z-index:3; width:230px; height:95px; border:1px solid rgba(188,89,62,.32); border-radius:50%; transform-style:preserve-3d; }
+.medal-orbit-one { transform:rotateX(67deg) rotateZ(-28deg); animation: orbit-turn 8s linear infinite; }.medal-orbit-two { width:210px; height:125px; border-color:rgba(61,72,64,.2); transform:rotateY(67deg) rotateZ(28deg); animation: orbit-turn-two 10s linear infinite; }
+.medal-orbit i { position:absolute; width:11px; height:11px; border-radius:50%; top:50%; left:-5px; background:linear-gradient(135deg,#fff,#c8795d); box-shadow:0 2px 8px rgba(102,55,40,.25); transform:translateZ(10px); }
+.medal-orbit-two i { left:auto; right:-5px; width:8px; height:8px; background:linear-gradient(135deg,#fff7dc,#bd9c59); }
+.medal-shadow { position:absolute; width:120px; height:20px; bottom:25px; border-radius:50%; background:rgba(65,52,38,.16); filter:blur(11px); transform:rotateX(72deg); animation: shadow-breathe 5s ease-in-out infinite; }
+@keyframes coin-hover { 0%,100% { transform:translateY(0) rotateY(-13deg) rotateX(8deg); } 50% { transform:translateY(-12px) rotateY(13deg) rotateX(-5deg); } }
+@keyframes orbit-turn { from { transform:rotateX(67deg) rotateZ(-28deg); } to { transform:rotateX(67deg) rotateZ(332deg); } }
+@keyframes orbit-turn-two { from { transform:rotateY(67deg) rotateZ(28deg); } to { transform:rotateY(67deg) rotateZ(388deg); } }
+@keyframes medal-aura { from { opacity:.55; transform:scale(.88); } to { opacity:1; transform:scale(1.08); } }
+@keyframes shadow-breathe { 0%,100% { transform:scale(.88) rotateX(72deg); opacity:.65; } 50% { transform:scale(1.08) rotateX(72deg); opacity:.32; } }
+@media (max-width:760px) { .keepsake-scene { flex-direction:column-reverse; gap:2px; min-height:0; padding:38px 0 28px; text-align:center; }.keepsake-note .eyebrow { justify-content:center; }.keepsake-note h2 { font-size:30px; }.medal-stage { width:230px; height:225px; }.medal-coin { width:125px; height:125px; }.medal-orbit { width:200px; height:82px; }.medal-orbit-two { width:185px; height:108px; }.medal-shadow { bottom:17px; } }
+@media (prefers-reduced-motion:reduce) { .medal-coin,.medal-orbit,.medal-aura,.medal-shadow { animation:none; } }
+/* Refine the keepsake heading and give the invitation card a subtle 3D finish. */
+.keepsake-note h2 { letter-spacing: -1.7px; word-spacing: 0; font-kerning: normal; }
+.keepsake-note h2 em { font-style: normal; font-weight: 500; letter-spacing: -1.6px; }
+.invitation-card { isolation: isolate; transform-style: preserve-3d; border-color: rgba(147,128,96,.42); background: linear-gradient(145deg,#f4f0e6 0%,#eee9dc 48%,#e8e2d4 100%); box-shadow: 0 2px 3px rgba(55,44,29,.05), 0 12px 24px rgba(55,44,29,.08), 0 34px 70px rgba(55,44,29,.09), inset 0 1px 0 rgba(255,255,255,.85); transition: transform .45s cubic-bezier(.2,.75,.25,1), box-shadow .45s ease; }
+.invitation-card::before { content:""; position:absolute; inset:12px; z-index:0; border:1px solid rgba(155,135,103,.2); pointer-events:none; transform:translateZ(4px); }
+.invitation-card::after { content:""; position:absolute; z-index:2; top:0; bottom:0; left:-42%; width:32%; pointer-events:none; background:linear-gradient(100deg,transparent,rgba(255,255,255,.28),transparent); transform:skewX(-17deg); animation:card-glint 9s ease-in-out infinite; }
+.card-topline,.card-content,.card-bottomline { position:relative; z-index:1; }
+@keyframes card-glint { 0%,58% { left:-42%; opacity:0; } 64% { opacity:.7; } 80% { left:112%; opacity:.45; } 100% { left:112%; opacity:0; } }
+@media (hover:hover) and (pointer:fine) { .invitation-card:hover { transform:perspective(1500px) rotateX(.65deg) translateY(-4px); box-shadow:0 3px 5px rgba(55,44,29,.05),0 18px 30px rgba(55,44,29,.1),0 44px 84px rgba(55,44,29,.12),inset 0 1px 0 rgba(255,255,255,.9); } }
+@media (max-width:760px) { .invitation-card::before { inset:8px; }.keepsake-note h2 { letter-spacing:-1.4px; }.keepsake-note h2 em { letter-spacing:-1.25px; } }
+@media (prefers-reduced-motion:reduce) { .invitation-card::after { animation:none; display:none; }.invitation-card { transition:none; } }
+.keepsake-note h2 { font-family: var(--sans); font-size: clamp(27px,3vw,38px); font-weight: 600; letter-spacing: -1.2px; line-height: 1.25; word-spacing: 0; }
+.keepsake-note h2 em { font-family: var(--sans); font-style: normal; font-weight: 600; letter-spacing: -1.2px; }
+.countdown { gap: 12px; perspective: 900px; }
+.time-unit { position: relative; min-width: 86px; padding: 16px 13px 13px; border: 1px solid rgba(147,128,96,.28); border-radius: 14px; border-left: 1px solid rgba(147,128,96,.28); background: linear-gradient(155deg,#fffdf8 0%,#f0eadc 100%); box-shadow: 0 4px 0 rgba(183,168,139,.72),0 10px 18px rgba(56,47,35,.08),inset 0 1px 0 rgba(255,255,255,.95); overflow: hidden; transform-style: preserve-3d; transition: transform .3s ease, box-shadow .3s ease; }
+.time-unit::before { content:""; position:absolute; top:0; left:12%; right:12%; height:1px; background:rgba(255,255,255,.95); }
+.time-unit:first-child { border-left: 1px solid rgba(147,128,96,.28); }
+.time-unit strong { display:block; text-shadow:0 2px 0 rgba(255,255,255,.85),0 5px 12px rgba(111,66,47,.13); transform-origin:50% 62%; animation:countdown-flip .42s cubic-bezier(.2,.75,.25,1) both; }
+.time-unit span { position:relative; z-index:1; }
+@keyframes countdown-flip { 0% { opacity:.35; transform:rotateX(-65deg) translateY(-5px); } 100% { opacity:1; transform:rotateX(0) translateY(0); } }
+@media (hover:hover) and (pointer:fine) { .time-unit:hover { transform:translateY(-4px) rotateX(5deg); box-shadow:0 7px 0 rgba(183,168,139,.72),0 15px 22px rgba(56,47,35,.12),inset 0 1px 0 rgba(255,255,255,.95); } }
+@media (max-width:760px) { .countdown { gap:8px; }.time-unit { min-width:0; padding:13px 5px 11px; }.keepsake-note h2,.keepsake-note h2 em { letter-spacing:-.8px; } }
+@media (prefers-reduced-motion:reduce) { .time-unit strong { animation:none; }.time-unit { transition:none; } }
+.topbar-label { color: #625f56; font: 600 12px/1.2 var(--sans); letter-spacing: 1.05px; }
+.topbar-year { color: var(--accent); font: 500 12px/1.2 var(--mono); letter-spacing: 1.2px; }
+.footer { color: #625f56; font: 500 11px/1.4 var(--sans); letter-spacing: .85px; }
+.footer span:last-child { color: #777267; }
+@media (max-width:760px) { .topbar-label { font-size: 9px; letter-spacing: .55px; }.footer { font-size: 8.5px; letter-spacing: .35px; } }
+@media (max-width:380px) { .footer { font-size: 7.5px; letter-spacing: .15px; } }
+.invitation-card { transform: perspective(1200px) rotateX(var(--card-tilt-x,0deg)) rotateY(var(--card-tilt-y,0deg)); }
+@media (hover:hover) and (pointer:fine) { .invitation-card:hover { transform: perspective(1200px) rotateX(var(--card-tilt-x,0deg)) rotateY(var(--card-tilt-y,0deg)) translateY(-3px); } }
+@media (prefers-reduced-motion:reduce) { .invitation-card { transform:none; } }
